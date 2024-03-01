@@ -1,0 +1,85 @@
+
+{% set showNav="true" %}
+{% extends "layouts/main.html" %}
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form method="post">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Select an account type
+            </h1>
+          </legend>
+
+          <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="nqsw" name="usertype" type="radio" aria-describedby="nqsw-item-hint" value="nqsw" {% if user.type == user_types.nqsw %} checked="checked" {% endif %}>
+              <label class="govuk-label govuk-radios__label" for="nqsw">
+                Newly qualified social worker
+              </label>
+              <div id="nqsw-item-hint" class="govuk-hint govuk-radios__hint">
+                Submit assessments and access learner record
+              </div>
+            </div>
+          </div>
+
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="assessor" name="usertype" type="radio" aria-describedby="assessor-item-hint" value="assessor"{% if user.type == user_types.assessor %} checked="checked" {% endif %}>
+            <label class="govuk-label govuk-radios__label" for="assessor">
+              Assessor
+            </label>
+            <div id="assessor-item-hint" class="govuk-hint govuk-radios__hint">
+              Assess work and provide feedback
+            </div>
+          </div>
+
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="coordinator" name="usertype" type="radio" value="coordinator" aria-describedby="coordinator-item-hint" {% if user.type == user_types.coordinator %} checked="checked" {% endif %}>
+            <label class="govuk-label govuk-radios__label" for="coordinator">
+              Coordinator
+            </label>
+            <div id="coordinator-item-hint" class="govuk-hint govuk-radios__hint">
+              Add and remove users from the system
+            </div>
+          </div>
+
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="assessorCoordinator" name="usertype" type="radio" value="assessor_coordinator" aria-describedby="assossor_coordinator-item-hint" {% if user.type == user_types.assessor_coordinator %} checked="checked" {% endif %}>
+            <label class="govuk-label govuk-radios__label" for="assessorCoordinator">
+              Assessor/Coordinator
+            </label>
+            <div id="assossor_coordinator-item-hint" class="govuk-hint govuk-radios__hint">
+              Full access to both Assessor and Coordinator roles
+            </div>
+          </div>
+
+
+
+          
+        </fieldset>
+      </div>
+
+      
+      {% if id %}
+        <input type="hidden" name="id" value="{{id}}" />
+      {% endif %}
+      
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        {% if id %}
+          Update
+        {% else %}
+          Continue
+        {% endif %}
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

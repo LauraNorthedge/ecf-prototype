@@ -1,0 +1,57 @@
+
+{% set showNav="true" %}
+{% extends "layouts/main.html" %}
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      <span class="govuk-table__caption--l">Change details</span>
+    </h1>
+    
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Account type
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{user.type}}
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link govuk-link--no-visited-state" href="select-user-type?editing=true&id={{id}}">Change<span class="govuk-visually-hidden"> name</span></a>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Name and email address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p>{{user.fname}} {{user.lname}}</p>
+          <p>{{user.email}}</p>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link govuk-link--no-visited-state" href="add-user?editing=true&id={{id}}">Change<span class="govuk-visually-hidden"> name</span></a>
+        </dd>
+      </div>
+    </dl>
+
+
+    <p class="govuk-body">
+      {% if user.type == user_types.nqsw and user.status == "Not linked" %}
+      <a class="govuk-link govuk-link--no-visited-state" href="/account-creation-org-admin/?success=associated">Add {{ user.fname }} {{ user.lname }} to this organisation</a>
+      {% elif user.type == user_types.nqsw %}
+      <a class="govuk-link govuk-link--no-visited-state" href="/account-creation-org-admin/?success=dissociated" aria-describedby="unlink-hint">Unlink {{ user.fname }} {{ user.lname }} from this organisation</a>
+      <span id="unlinke-hint" class="govuk-hint govuk-!-display-block">
+        This account will no longer be linked to this organisation. This will not delete the account or any learner records. The account can be linked to another organisation by their coordinator.
+      </span>
+      {% else %}
+      <a class="govuk-link govuk-link--no-visited-state" href="cannot-deactivate">Deactivate account</a>
+      {% endif %}
+    </p>
+  </div>
+</div>
+
+{% endblock %}

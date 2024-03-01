@@ -1,0 +1,106 @@
+
+{% set showNav="true" %}
+{% extends "layouts/main.html" %}
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      <span class="govuk-table__caption--l">Enter user details</span>
+    </h1>
+    <form method="post">
+      <!-- <span class="govuk-caption-m">Redbridge City Council Administrator</span> -->
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend">
+            Select user type
+          </legend>
+          <div class="govuk-radios" data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="assessor" name="user-type" type="radio" value="assessor">
+              <label class="govuk-label govuk-radios__label" for="assessor">
+                Assessor
+              </label>
+            </div>
+
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="coordinator" name="user-type" type="radio" value="coordinator" aria-describedby="coordinator-item-hint">
+              <label class="govuk-label govuk-radios__label" for="coordinator">
+                Coordinator
+              </label>
+              <div id="coordinator-item-hint" class="govuk-hint govuk-radios__hint">
+                Add and remove users from the system
+              </div>
+            </div>
+
+
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="assessor_coordinator" name="user-type" type="radio" value="assessor_coordinator">
+              <label class="govuk-label govuk-radios__label" for="assessor_coordinator">
+                Coordinator / assessor
+              </label>
+            </div>
+
+
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="nqsw" name="user-type" type="radio" value="nqsw" data-aria-controls="conditional-nqsw">
+              <label class="govuk-label govuk-radios__label" for="nqsw">
+                Newly qualified social worker
+              </label>
+            </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-nqsw">
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="regnumber">
+                  Registration number (optional)
+                </label>
+                <div id="regnumber-hint" class="govuk-hint">
+                  Users not possessing this would have restricted access to the service. You can <a class="govuk-link govuk-link--no-visited-state" href="#">look up the Social Work England number</a> (opens in new window)
+                </div>
+                <input class="govuk-input govuk-!-width-one-third" id="regnumber" name="reg-number" type="number" aria-describedby="regnumber-hint">
+              </div>
+            </div>
+
+   
+
+
+
+
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="first-name">
+          First name
+        </label>
+        <input class="govuk-input govuk-input--width-20" id="first-name" name="firstName" type="text">
+      </div>
+      
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="last-name">
+          Last name
+        </label>
+        <input class="govuk-input govuk-input--width-20" id="last-name" name="lastName" type="text">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="email-address">
+          Email address
+        </label>
+        <input class="govuk-input govuk-input--width-20" id="email-address" name="emailAddress" type="text">
+      </div>
+      
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Add user
+      </button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

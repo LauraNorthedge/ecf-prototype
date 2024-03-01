@@ -1,0 +1,62 @@
+{# 1 #} 
+{% from 'node_modules/dfe-frontend-alpha/packages/components/header/macro.njk' import header %}
+
+{# 2 #}
+{% extends "layouts/wrapper_govuk" %}
+
+{# 3 #}
+{% block header %}
+  {{ header({
+    "showNav": showNav,
+    "showSearch": "false",
+    "showUserName": "false",
+    "userName": "",
+    "userNameURL": "",
+    "selectedNav": "",
+    "logoPath": "public/images",
+    "homeHref": "/",
+    "service": {
+      "name": "Early Career Framework"
+    },
+    "primaryLinks": [
+      {
+        "url"  : "/account-creation-org-admin/",
+        "label" : "Manage accounts"
+      },
+      {
+        "url"  : "#",
+        "label" : "Manage learner records"
+      },
+      {
+        "url"  : "",
+        "label" : "Log out"
+      }
+    ]
+  })
+}}
+
+
+
+
+  <div class="govuk-width-container">
+
+    {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+    {{ govukPhaseBanner({
+      tag: {
+          text: "Prototype"
+      },
+      html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+      }) }}
+
+    {% if  ( hideBackLink != 1) %}
+        <a href="javascript:history.go(-1)" class="govuk-back-link">Back</a>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{# 4 #} 
+{% block scripts %}
+  {{ super() }}
+  <script src="/public/javascripts/dfefrontend.js"></script>
+{% endblock %}

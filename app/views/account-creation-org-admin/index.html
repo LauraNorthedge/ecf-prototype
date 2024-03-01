@@ -1,0 +1,77 @@
+{% set hideBackLink=1 %}
+{% set showNav="true" %}
+{% extends "layouts/main.html" %}
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% if show_notification %}
+    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          {% if show_notification == "user_added" %}
+            Account was successfully added
+          {% elif show_notification == "dissociated" %}
+            User was successfully dissociated
+          {% elif show_notification == "associated" %}
+            User was successfully associated
+          {% endif %}
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">
+            An email notification was sent to emily@rbcouncil.org.uk
+        </p>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- <span class="govuk-caption-m">Redbridge City Council Administrator</span> -->
+
+
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-table__caption--l">Manage accounts</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" width="60%" class="govuk-table__header">Name</th>
+          <th scope="col" class="govuk-table__header">Account type</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+
+    {% for user in users %}
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">
+          <a title="View details of {{ user.fname }} {{ user.lname }}" class="govuk-link govuk-link--no-visited-state" href="update-user?id={{ loop.index0 }}">{{ user.fname }} {{ user.lname }}</a>
+          
+          {% if user.status %}
+            {% set tagcolor="govuk-tag--grey" %}
+            {% if user.status == "Limited access" %}
+              {% set tagcolor="govuk-tag--orange" %}
+            {% endif %}
+            <strong class="govuk-tag {{ tagcolor }}">
+              {{ user.status }}
+            </strong>
+            
+          {% endif %}
+
+          {% if user.reason %}
+          <span class="govuk-!-display-block govuk-hint govuk-!-margin-bottom-0">{{ user.reason }}</span>
+          {% endif %}
+        </th>
+        <td class="govuk-table__cell">{{ user.type }}</td>
+
+      </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+
+    <a role="button" href="select-user-type" class="govuk-button">Add a new account</a>
+
+  </div>
+</div>
+
+{% endblock %}
