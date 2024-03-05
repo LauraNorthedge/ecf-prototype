@@ -3,9 +3,29 @@
 {% extends "layouts/main.html" %}
 {% block content %}
 
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    {% if show_notification %}
+    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Details updated
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">
+            Account details were successfully updated
+        </p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+
+
 
     <h1 class="govuk-heading-l">
       <span class="govuk-table__caption--l">Change details</span>
@@ -17,7 +37,7 @@
           Account type
         </dt>
         <dd class="govuk-summary-list__value">
-          {{user.type}}
+          {{user_types[user.type]}}
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link govuk-link--no-visited-state" href="select-user-type?editing=true&id={{id}}">Change<span class="govuk-visually-hidden"> name</span></a>
@@ -26,11 +46,12 @@
 
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
-          Name and email address
+          Account details
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>{{user.fname}} {{user.lname}}</p>
-          <p>{{user.email}}</p>
+          <p>{{user.firstName}} {{user.lastName}}</p>
+          <p>{{user.emailAddress}}</p>
+          <p>{% if user.regNumber %}SWE Registration number {{user.regNumber}}{% endif %}</p>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link govuk-link--no-visited-state" href="add-user?editing=true&id={{id}}">Change<span class="govuk-visually-hidden"> name</span></a>

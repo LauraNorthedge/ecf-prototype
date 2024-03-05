@@ -18,7 +18,7 @@
 
           <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="nqsw" name="usertype" type="radio" aria-describedby="nqsw-item-hint" value="nqsw" {% if user.type == user_types.nqsw %} checked="checked" {% endif %}>
+              <input class="govuk-radios__input" id="nqsw" name="usertype" type="radio" aria-describedby="nqsw-item-hint" value="nqsw" {% if user_types[user.type] == user_types.nqsw %} checked="checked" {% endif %}>
               <label class="govuk-label govuk-radios__label" for="nqsw">
                 Newly qualified social worker
               </label>
@@ -29,7 +29,7 @@
           </div>
 
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="assessor" name="usertype" type="radio" aria-describedby="assessor-item-hint" value="assessor"{% if user.type == user_types.assessor %} checked="checked" {% endif %}>
+            <input class="govuk-radios__input" id="assessor" name="usertype" type="radio" aria-describedby="assessor-item-hint" value="assessor"{% if user_types[user.type] == user_types.assessor %} checked="checked" {% endif %}>
             <label class="govuk-label govuk-radios__label" for="assessor">
               Assessor
             </label>
@@ -39,7 +39,7 @@
           </div>
 
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="coordinator" name="usertype" type="radio" value="coordinator" aria-describedby="coordinator-item-hint" {% if user.type == user_types.coordinator %} checked="checked" {% endif %}>
+            <input class="govuk-radios__input" id="coordinator" name="usertype" type="radio" value="coordinator" aria-describedby="coordinator-item-hint" {% if user_types[user.type] == user_types.coordinator %} checked="checked" {% endif %}>
             <label class="govuk-label govuk-radios__label" for="coordinator">
               Coordinator
             </label>
@@ -49,9 +49,9 @@
           </div>
 
           <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="assessorCoordinator" name="usertype" type="radio" value="assessor_coordinator" aria-describedby="assossor_coordinator-item-hint" {% if user.type == user_types.assessor_coordinator %} checked="checked" {% endif %}>
+            <input class="govuk-radios__input" id="assessorCoordinator" name="usertype" type="radio" value="assessorCoordinator" aria-describedby="assossor_coordinator-item-hint" {% if user_types[user.type] == user_types.assessorCoordinator %} checked="checked" {% endif %}>
             <label class="govuk-label govuk-radios__label" for="assessorCoordinator">
-              Assessor/Coordinator
+              Assessor, Coordinator
             </label>
             <div id="assossor_coordinator-item-hint" class="govuk-hint govuk-radios__hint">
               Full access to both Assessor and Coordinator roles
