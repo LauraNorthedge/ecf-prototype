@@ -11,13 +11,13 @@
     <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
       <div class="govuk-notification-banner__header">
         <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-          {% if show_notification == "user_added" %}
+          {% if show_notification == "account_added" %}
             Account was successfully added
-          {% elif show_notification == "dissociated" %}
+          {% elif show_notification == "account_unlinked" %}
              Account was successfully unlinked from this organisation
-          {% elif show_notification == "associated" %}
+          {% elif show_notification == "account_linked" %}
             Account was successfully linked to this organisation
-          {% elif show_notification == "deactivated" %}
+          {% elif show_notification == "account_deactivated" %}
             Account was successfully deactivated
           {% endif %}
         </h2>

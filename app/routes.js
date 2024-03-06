@@ -62,13 +62,7 @@ router.post('/one-login', function(req, res) {
 });
 
 
-
-
-
-
 router.get('/account-creation-org-admin', function(req, res) {
-
-    
 
     var show_notification = undefined;
     var user = undefined;
@@ -138,7 +132,7 @@ router.post('/account-creation-org-admin/add-user', function(req, res) {
     
     if (user.new_account == true) {
         user.new_account = false;
-        res.redirect(`/account-creation-org-admin/?show_notification=user_added&user_id=${req.body.id}`);
+        res.redirect(`/account-creation-org-admin/?show_notification=account_added&user_id=${req.body.id}`);
     } else {
         res.redirect(`/account-creation-org-admin/update-user?id=${req.body.id}`);
     }
@@ -159,14 +153,14 @@ router.get('/link-user', function(req, res) {
     var id = req.query.id;
     req.session.users[id].status = undefined;
 
-    res.redirect('/account-creation-org-admin/?success=associated');
+    res.redirect(`/account-creation-org-admin/?show_notification=account_linked&user_id=${id}`);
 });
 
 router.get('/unlink-user', function(req, res) {
     var id = req.query.id;
     req.session.users[id].status = "not_linked";
 
-    res.redirect('/account-creation-org-admin/?success=dissociated');
+    res.redirect(`/account-creation-org-admin/?show_notification=account_unlinked&user_id=${id}`);
 });
 
 router.get('/deactivate-account', function(req, res) {
@@ -183,7 +177,7 @@ router.get('/deactivate-account', function(req, res) {
             res.redirect('/account-creation-org-admin/cannot-deactivate');
         } else {
             req.session.users[id].status = "deactivated";
-            res.redirect(`/account-creation-org-admin/?show_notification=user_deactivated&id=${id}`);
+            res.redirect(`/account-creation-org-admin/?show_notification=account_deactivated&user_id=${id}`);
         }
     }
 
