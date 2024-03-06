@@ -54,7 +54,7 @@
           <p>
             {% if user.type == "nqsw" %}
               {% if user.regNumber %}
-              SWE Registration number  {{user.regNumber}} 
+              SWE registration number  {{user.regNumber}} 
               {% else %}
               <strong class="govuk-tag govuk-tag--orange">
                 Missing registration number
@@ -78,7 +78,7 @@
       {% if user.type == "nqsw" and user.status == "not_linked" %}
       <a class="govuk-link govuk-link--no-visited-state" href="/link-user?id={{id}}">Link {{ user.firstName }} {{ user.lastName }} to this organisation</a>
       {% elif user.type == "nqsw" %}
-      <a class="govuk-link govuk-link--no-visited-state" href="/unlink-user?id={{id}}" aria-describedby="unlink-hint">Unlink {{ user.fname }} {{ user.lname }} from this organisation</a>
+      <a class="govuk-link govuk-link--no-visited-state" href="/unlink-user?id={{id}}" aria-describedby="unlink-hint">Unlink {{ user.firstName }} {{ user.lastName }} from this organisation</a>
       <span id="unlinke-hint" class="govuk-hint govuk-!-display-block">
         This account will no longer be linked to this organisation. This will not delete the account or any learner records. The account can be linked to another organisation by their coordinator.
       </span>
