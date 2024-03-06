@@ -51,7 +51,21 @@
         <dd class="govuk-summary-list__value">
           <p>{{user.firstName}} {{user.lastName}}</p>
           <p>{{user.emailAddress}}</p>
-          <p>{% if user.regNumber %}SWE Registration number {{user.regNumber}}{% endif %}</p>
+          <p>
+            {% if user.type == "nqsw" %}
+              {% if user.regNumber %}
+              SWE Registration number  {{user.regNumber}} 
+              {% else %}
+              <strong class="govuk-tag govuk-tag--orange">
+                Missing registration number
+              </strong>
+              <span class="govuk-!-display-block govuk-hint govuk-!-margin-bottom-0">
+                You have not provided a Social Work England registration number for this account
+              </span> 
+
+              {% endif %}
+            {% endif %}
+          </p>
         </dd>
         <dd class="govuk-summary-list__actions">
           <a class="govuk-link govuk-link--no-visited-state" href="add-user?editing=true&id={{id}}">Change<span class="govuk-visually-hidden"> name</span></a>
@@ -61,15 +75,19 @@
 
 
     <p class="govuk-body">
-      {% if user.type == user_types.nqsw and user.status == "Not linked" %}
-      <a class="govuk-link govuk-link--no-visited-state" href="/account-creation-org-admin/?success=associated">Add {{ user.fname }} {{ user.lname }} to this organisation</a>
-      {% elif user.type == user_types.nqsw %}
-      <a class="govuk-link govuk-link--no-visited-state" href="/account-creation-org-admin/?success=dissociated" aria-describedby="unlink-hint">Unlink {{ user.fname }} {{ user.lname }} from this organisation</a>
+      {% if user.type == "nqsw" and user.status == "not_linked" %}
+      <a class="govuk-link govuk-link--no-visited-state" href="/link-user?id={{id}}">Link {{ user.firstName }} {{ user.lastName }} to this organisation</a>
+      {% elif user.type == "nqsw" %}
+      <a class="govuk-link govuk-link--no-visited-state" href="/unlink-user?id={{id}}" aria-describedby="unlink-hint">Unlink {{ user.fname }} {{ user.lname }} from this organisation</a>
       <span id="unlinke-hint" class="govuk-hint govuk-!-display-block">
         This account will no longer be linked to this organisation. This will not delete the account or any learner records. The account can be linked to another organisation by their coordinator.
       </span>
       {% else %}
-      <a class="govuk-link govuk-link--no-visited-state" href="cannot-deactivate">Deactivate account</a>
+        {% if user.status == "deactivated" %}
+          <a class="govuk-link govuk-link--no-visited-state" href="/activate-account?id={{id}}">Activate account</a>
+        {% else %}
+          <a class="govuk-link govuk-link--no-visited-state" href="/deactivate-account?id={{id}}">Deactivate account</a>
+        {% endif %}
       {% endif %}
     </p>
   </div>
