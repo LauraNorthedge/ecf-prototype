@@ -24,7 +24,7 @@ var arrUsers = [
         regNumber: "SW2478"
     },{
         firstName: "Joe",
-        lastName: "Blogg",
+        lastName: "Bloggs",
         emailAddress: "joe@rbcouncil.org.uk",
         type: 'coordinator',        
     },{
