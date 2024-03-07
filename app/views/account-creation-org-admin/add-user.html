@@ -1,5 +1,6 @@
 
 {% set showNav="true" %}
+{% set selectedNav = "Manage accounts" %}
 {% extends "layouts/main.html" %}
 {% block content %}
 
@@ -51,12 +52,11 @@
         <input type="hidden" name="id" value="{{id}}" />
         <input type="hidden" name="userType" value="{{user_type}}" />
       {% endif %}
-
       <button type="submit" class="govuk-button" data-module="govuk-button">
-        {% if id %}
-          Update
-        {% else %}
+        {% if user.new_account == true %}
           Add account
+        {% else %}
+          Update
         {% endif %}
       </button>
     </form>

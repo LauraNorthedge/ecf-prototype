@@ -1,5 +1,6 @@
 
 {% set showNav="true" %}
+{% set selectedNav = "Manage accounts" %}
 {% extends "layouts/main.html" %}
 {% block content %}
 
@@ -80,14 +81,15 @@
       {% elif user.type == "nqsw" %}
       <a class="govuk-link govuk-link--no-visited-state" href="/unlink-user?id={{id}}" aria-describedby="unlink-hint">Unlink {{ user.firstName }} {{ user.lastName }} from this organisation</a>
       <span id="unlinke-hint" class="govuk-hint govuk-!-display-block">
-        This account will no longer be linked to this organisation. This will not delete the account or any learner records. The account can be linked to another organisation by their coordinator.
+        This account will no longer be linked to this organisation. This will not delete the account or any learner records. Coordinators from other organisations will be able to link this account to their own ECF service.
       </span>
       {% else %}
         {% if user.status == "deactivated" %}
           <a class="govuk-link govuk-link--no-visited-state" href="/activate-account?id={{id}}">Activate account</a>
         {% else %}
           <a class="govuk-link govuk-link--no-visited-state" href="/deactivate-account?id={{id}}">Deactivate account</a>
-        {% endif %}
+          <p>This account will no longer have access to the ECF digital service. The account will not be permanently deleted.</p>
+          {% endif %}
       {% endif %}
     </p>
   </div>

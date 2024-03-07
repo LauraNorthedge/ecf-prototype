@@ -6,30 +6,41 @@
 
 {# 3 #}
 {% block header %}
-  {{ header({
+  {% if showNav != "false" %}
+    {%
+        set arrHeaderActionLinks = [
+          {
+            "url"  : "/",
+            "label" : "My account"
+          },
+          {
+            "url"  : "/",
+            "label" : "Sign out"
+          }
+        ]
+    %}
+
+  {% endif %}
+
+  {% set oHeader = {
     "showNav": showNav,
     "showSearch": "false",
     "showUserName": "false",
     "showHeaderActionLinks": "true",
     "userName": "",
     "userNameURL": "",
-    "selectedNav": "",
+    "selectedNav": selectedNav,
     "logoPath": "public/images",
     "homeHref": "/",
     "service": {
       "name": "Early Career Framework"
     },
-    "headerActionLinks": [
-      {
-        "url"  : "/",
-        "label" : "My account"
-      },
-      {
-        "url"  : "/",
-        "label" : "Sign out"
-      }
-    ],
+    "headerActionLinks": arrHeaderActionLinks,
     "primaryLinks": [
+      {
+        "url"  : "/welcome",
+        "label" : "Home"
+      },
       {
         "url"  : "/account-creation-org-admin/",
         "label" : "Manage accounts"
@@ -39,8 +50,12 @@
         "label" : "Manage learner records"
       }
     ]
-  })
-}}
+  }
+
+  %}
+
+
+  {{ header(oHeader)}}
 
 
 
