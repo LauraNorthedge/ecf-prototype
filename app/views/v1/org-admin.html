@@ -1,0 +1,87 @@
+{% set hideBackLink=1 %}
+{% set showNav="true" %}
+{% set selectedNav = "Manage accounts" %}
+{% extends "layouts/main.html" %}
+{% block content %}
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% if data.notification.show %}
+    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          {% if data.notification.type == "account_added" %}
+            Account was successfully added
+          {% elif data.notification.type == "account_unlinked" %}
+            Account was successfully unlinked from this organisation
+          {% elif data.notification.type == "account_linked" %}
+            Account was successfully linked to this organisation
+          {% elif data.notification.type == "account_deactivated" %}
+            Account was successfully deactivated
+          {% endif %}
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">
+            An email notification was sent to {{ data.notification.email }}
+        </p>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- <span class="govuk-caption-m">Redbridge City Council Administrator</span> -->
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption govuk-table__caption--l">Manage accounts</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" width="60%" class="govuk-table__header">Name</th>
+          <th scope="col" class="govuk-table__header">Account type</th>
+          <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Action</span></th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+
+    {% for user in data.users %}
+      <tr class="govuk-table__row">
+
+        <th scope="row" class="govuk-table__header">
+          {{ user.firstName }} {{ user.lastName }}
+
+            {% if user.status == "not_linked" %}
+              <strong class="govuk-tag govuk-tag--grey">
+                Not linked
+              </strong>
+              <span class="govuk-!-display-block govuk-hint govuk-!-margin-bottom-0">
+                This account is no longer linked to this organisation
+              </span>
+            {% elif user.status == "deactivated" %}
+              <strong class="govuk-tag govuk-tag--grey">
+                Deactivated
+              </strong>
+            {% elif user.type == "nqsw" and user.regNumber == undefined %}
+              <strong class="govuk-tag govuk-tag--orange">
+                Missing registration number
+              </strong>
+              <span class="govuk-!-display-block govuk-hint govuk-!-margin-bottom-0">
+                You have not provided a Social Work England registration number for this account
+              </span> 
+            {% endif %}
+
+        </th>
+        <td class="govuk-table__cell">{{ data.userTypes[user.type] }}</td>
+        <td class="govuk-table__cell"><a title="View details of {{ user.firstName }} {{ user.lastName }}" class="govuk-link govuk-link--no-visited-state" href="account-creation-org-admin/update-user?id={{ user.id }}">View</a></td>
+
+      </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+
+    <a role="button" href="account-creation-org-admin/select-user-type" class="govuk-button">Add someone new</a>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+
+{% set showNav="true" %}
+{% set selectedNav = "Manage accounts" %}
+{% extends "layouts/main.html" %}
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+      <span class="govuk-table__caption--l">Enter their details</span>
+    </h1>
+    <form method="post">
+      <!-- <span class="govuk-caption-m">Redbridge City Council Administrator</span> -->
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="first-name">
+          First name
+        </label>
+        <input value="{{ user.firstName }}" class="govuk-input govuk-input--width-20" id="first-name" name="firstName" type="text">
+      </div>
+      
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="last-name">
+          Last name
+        </label>
+        <input value="{{ user.lastName }}" class="govuk-input govuk-input--width-20" id="last-name" name="lastName" type="text">
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="email-address">
+          Email address
+        </label>
+        <input value="{{ user.emailAddress }}" class="govuk-input govuk-input--width-20" id="email-address" name="emailAddress" type="text">
+      </div>
+
+      {% if user.type == "nqsw" %}
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="reg-number">
+          Social Work England registration number (optional) 
+        </label>
+        <div id="regnumber-hint" class="govuk-hint">
+          <p>You need to provide a Social Work England registration number in order to receive payments from the ECF for this account. You can <a href="#">look up the registration number</a> on the Social Work England website (opens in a new window).</p>
+          <p class="govuk-!-margin-bottom-0">If you don't know the registration number yet, you can add it later. Your organisation will not receive any ECF funding for this account until the registration number is provided.</p>
+        </div>
+        <input class="govuk-input govuk-!-width-one-third" id="reg-number" name="regNumber" aria-describedby="regnumber-hint" value="{{ user.regNumber }}">
+      </div>
+      {% endif %}
+
+      {% if user.id >= 0 %}
+        <input type="hidden" name="id" value="{{ user.id }}" />
+        <button type="submit" class="govuk-button" data-module="govuk-button">Update</button>
+        {% else %}
+        <button type="submit" class="govuk-button" data-module="govuk-button">Add account</button>
+      {% endif %}
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

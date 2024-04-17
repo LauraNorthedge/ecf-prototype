@@ -1,0 +1,27 @@
+{% set hideBackLink=1 %}
+{% set showNav="true" %}
+{% set selectedNav = "Home" %}
+
+{% extends "layouts/main.html" %}
+
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+
+    <h1 class="govuk-heading-l">
+        <span class="govuk-label--l">Welcome to Early Career Framework</span>
+    </h1>
+    <p>Welcome to the ECF digital service.</p>
+    <p>Through this service you can:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>add and manage user accounts for your organisation</li>
+      <li>view and manage learner records</li>
+    </ul>
+
+  </div>
+</div>
+
+{% endblock %}

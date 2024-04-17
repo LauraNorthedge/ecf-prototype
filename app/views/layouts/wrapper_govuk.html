@@ -66,6 +66,7 @@
 {% endblock %}
 
 {% block bodyEnd %}
+  {{ data | log }}
   {% block scripts %}
     {% include "govuk-prototype-kit/includes/scripts.njk" %}
     {% block pageScripts %}{% endblock %}

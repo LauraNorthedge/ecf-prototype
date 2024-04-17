@@ -42,7 +42,7 @@
         "label" : "Home"
       },
       {
-        "url"  : "/account-creation-org-admin/",
+        "url"  : "/org-admin",
         "label" : "Manage accounts"
       },
       {
@@ -51,14 +51,9 @@
       }
     ]
   }
-
   %}
 
-
   {{ header(oHeader)}}
-
-
-
 
   <div class="govuk-width-container">
 
@@ -75,6 +70,11 @@
     {% endif %}
   </div>
 
+{% endblock %}
+
+{% block bodyEnd %}
+  <!-- GOV.UK Prototype Kit {{releaseVersion}} -->
+  {{ data | log }}
 {% endblock %}
 
 {# 4 #} 

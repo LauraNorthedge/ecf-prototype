@@ -1,3 +1,5 @@
 {
-  "serviceName": "Early career framework"
+  "serviceName": "Early career framework",
+  "useAutoStoreData": "true",
+  "useBrowserSync": "false"
 }
