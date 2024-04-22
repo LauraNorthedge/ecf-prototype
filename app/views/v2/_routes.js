@@ -43,12 +43,14 @@ router.get('start', function(req, res) {
 
 router.post('/one-login', function(req, res) {
 
-	if(req.session.data.version == '1.1')
-		res.redirect("/v2/welcome");
-	else 
+	if(req.session.data.version == '1.0') {
 		res.redirect("/v2/one-login/enter-password");
+	}
+	else {
+		res.redirect("/v2/welcome");
+	}
 
-	});
+});
 
 // --- Org admin ---
 
@@ -163,7 +165,7 @@ router.post('/account-creation-org-admin/add-user', function(req, res) {
 
 // --- Update user ---
 
-router.get(/update-user/, function(req, res) {
+router.get('/account-creation-org-admin/update-user', function(req, res) {
 
 	req.session.data.notification.show = false;
 
@@ -185,7 +187,7 @@ router.get(/update-user/, function(req, res) {
 router.get(/unlink-user/, function(req, res) {
 
 	const index = req.session.data.users.findIndex(user => user.id == req.session.data.id);
-
+	
 	req.session.data.users[index].status = "not_linked";
 	req.session.data.notification.show = true;
 	req.session.data.notification.type = 'account_unlinked';
@@ -198,7 +200,7 @@ router.get(/unlink-user/, function(req, res) {
 // --- Link user ---
 
 router.get(/link-user/, function(req, res) {
-
+	
 	const index = req.session.data.users.findIndex(user => user.id == req.session.data.id);
 
 	req.session.data.users[index].status = undefined;
