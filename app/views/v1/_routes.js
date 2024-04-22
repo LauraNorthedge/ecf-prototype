@@ -163,7 +163,7 @@ router.post('/account-creation-org-admin/add-user', function(req, res) {
 
 // --- Update user ---
 
-router.get(/update-user/, function(req, res) {
+router.get('/account-creation-org-admin/update-user', function(req, res) {
 
 	req.session.data.notification.show = false;
 
