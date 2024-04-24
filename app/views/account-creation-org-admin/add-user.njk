@@ -1,9 +1,7 @@
-
 {% set showNav="true" %}
 {% set selectedNav = "Manage accounts" %}
 {% extends "layouts/main.html" %}
 {% block content %}
-
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -20,7 +18,7 @@
         </label>
         <input value="{{ user.firstName }}" class="govuk-input govuk-input--width-20" id="first-name" name="firstName" type="text">
       </div>
-      
+
       <div class="govuk-form-group">
         <label class="govuk-label" for="last-name">
           Last name
@@ -35,10 +33,10 @@
         <input value="{{ user.emailAddress }}" class="govuk-input govuk-input--width-20" id="email-address" name="emailAddress" type="text">
       </div>
 
-      {% if user_type == "nqsw" %}
+      {% if user.type == "nqsw" %}
       <div class="govuk-form-group">
         <label class="govuk-label" for="reg-number">
-          Social Work England registration number (optional) 
+          Social Work England registration number (optional)
         </label>
         <div id="regnumber-hint" class="govuk-hint">
           <p>You need to provide a Social Work England registration number in order to receive payments from the ECF for this account. You can <a href="#">look up the registration number</a> on the Social Work England website (opens in a new window).</p>
@@ -48,17 +46,12 @@
       </div>
       {% endif %}
 
-      {% if id %}
-        <input type="hidden" name="id" value="{{id}}" />
-        <input type="hidden" name="userType" value="{{user_type}}" />
-      {% endif %}
-      <button type="submit" class="govuk-button" data-module="govuk-button">
-        {% if user.new_account == true %}
-          Add account
+      {% if user.id >= 0 %}
+        <input type="hidden" name="id" value="{{ user.id }}" />
+        <button type="submit" class="govuk-button" data-module="govuk-button">Update</button>
         {% else %}
-          Update
-        {% endif %}
-      </button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Add account</button>
+      {% endif %}
     </form>
 
   </div>

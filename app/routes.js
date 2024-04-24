@@ -3,50 +3,231 @@
 // https://prototype-kit.service.gov.uk/docs/create-routes
 //
 
-const govukPrototypeKit = require('govuk-prototype-kit')
-const router = govukPrototypeKit.requests.setupRouter()
+const govukPrototypeKit = require("govuk-prototype-kit");
+const router = govukPrototypeKit.requests.setupRouter();
 
 // =======================================
-// Routes for all versions
+// Data and functions
 // =======================================
 
-// --- Route topnav links to correct version --
+function sortUsers(req) {
+  req.session.data.users.sort(function (a, b) {
+    if (a.firstName < b.firstName) {
+      return -1;
+    }
+    if (a.firstName > b.firstName) {
+      return 1;
+    }
+    return 0;
+  });
+}
 
-router.get('/welcome', function(req, res) {
+function getUserByID(users, id) {
+  return users.find((user) => user.id == id);
+}
 
-  let versionPath = '/v';
+function isUserCoordinator(user) {
+  return user.type == "coordinator" || user.type == "assessorCoordinator";
+}
 
-	if (req.session.data.version) {
-    versionPath += Math.floor(req.session.data.version);
-  } else {
-    versionPath += '1';
-  }
+function redirect(req, res, url) {
+  return req.session.save(() => res.redirect(url));
+}
 
-  res.redirect(versionPath + "/welcome");
+// =======================================
+// Routes
+// =======================================
 
+// --- One login ---
+
+router.post("/one-login", function (req, res) {
+  return res.redirect("/welcome");
 });
 
-router.get('/org-admin', function(req, res) {
+// --- Org admin ---
 
-  let versionPath = '/v';
+router.get("/org-admin", function (req, res) {
+  const data = req.session.data;
+  const notification = data.notification;
 
-	if (req.session.data.version) {
-    versionPath += Math.floor(req.session.data.version);
-  } else {
-    versionPath += '1';
-  }
+  data.editing = undefined;
+  data.emailAddress = undefined;
+  data.firstName = undefined;
+  data.id = undefined;
+  data.lastName = undefined;
+  data.regNumber = undefined;
+  data.success = undefined;
+  data.usertype = undefined;
+  data.notification = undefined;
 
-  res.redirect(versionPath + "/org-admin");
+  sortUsers(req);
 
+  return res.render("/org-admin", { notification });
 });
 
+// --- Select user type ---
 
-// =======================================
-// Version Routes Files Below
-// =======================================
+router.get(/select-user-type/, function (req, res) {
+  const user = req.query.editing
+    ? getUserByID(req.session.data.users, req.query.id)
+    : undefined;
 
-// Iterations
-router.use('/v1', require('./views/v1/_routes'));
-router.use('/v2', require('./views/v2/_routes'));
+  return res.render("/account-creation-org-admin/select-user-type", {
+    user: user,
+  });
+});
+
+router.post(/select-user-type/, function (req, res) {
+  const data = req.session.data;
+  // Nothing was selected
+  if (data.usertype === undefined) {
+    return redirect(req, res, "/account-creation-org-admin/select-user-type");
+  }
+
+  // Add or update user details
+  if (!data.id)
+    return redirect(req, res, `/account-creation-org-admin/add-user`);
+
+  const user = getUserByID(data.users, data.id);
+
+  user.type = data.usertype;
+
+  return redirect(
+    req,
+    res,
+    `/account-creation-org-admin/update-user?id=${data.id}&success=true`
+  );
+});
+
+// --- Add user ---
+
+router.get("/account-creation-org-admin/add-user", function (req, res) {
+  const user = req.query.editing
+    ? getUserByID(req.session.data.users, req.query.id)
+    : undefined;
+
+  return res.render("/account-creation-org-admin/add-user", { user });
+});
+
+function updateUser(req, res) {
+  const data = req.session.data;
+  const user = getUserByID(data.users, data.id);
+
+  user.firstName = data.firstName;
+  user.lastName = data.lastName;
+  user.emailAddress = data.emailAddress;
+  user.regNumber = data.regNumber;
+
+  data.notification = {
+    show: true,
+    type: "account_updated",
+    email: data.emailAddress,
+  };
+  return redirect(
+    req,
+    res,
+    `/account-creation-org-admin/update-user?id=${data.id}`
+  );
+}
+
+router.post("/account-creation-org-admin/add-user", function (req, res) {
+  const data = req.session.data;
+  // Add or update user details
+  if (data.id) return updateUser(req, res);
+
+  data.users.push({
+    emailAddress: data.emailAddress,
+    firstName: data.firstName,
+    id: data.users.length,
+    lastName: data.lastName,
+    type: data.usertype,
+  });
+
+  data.notification = {
+    show: true,
+    type: "account_added",
+    email: data.emailAddress,
+  };
+
+  return redirect(req, res, "/org-admin");
+});
+
+// --- Update user ---
+
+router.get(
+  "/account-creation-org-admin/update-user",
+  function ({ session, query }, res) {
+    const data = session.data;
+    const user = data.users.filter((user) => user.id == query.id)[0];
+
+    const notification = data.notification;
+    data.notification = undefined;
+
+    return res.render("/account-creation-org-admin/update-user", {
+      user,
+      notification,
+    });
+  }
+);
+
+// --- Unlink user ---
+
+router.get(/unlink-user/, function (req, res) {
+  const data = req.session.data;
+  const user = getUserByID(data.users, data.id);
+
+  user.status = "not_linked";
+  data.notification = {
+    show: true,
+    type: "account_unlinked",
+    email: user.emailAddress,
+  };
+
+  return redirect(req, res, `/org-admin`);
+});
+
+// --- Link user ---
+
+router.get(/link-user/, function (req, res) {
+  const data = req.session.data;
+  const user = getUserByID(data.users, data.id);
+
+  user.status = undefined;
+  data.notification = {
+    show: true,
+    type: "account_linked",
+    email: user.emailAddress,
+  };
+
+  return redirect(req, res, `/org-admin`);
+});
+
+// --- Deactivate account ---
+
+router.get(/deactivate-account/, function (req, res) {
+  const data = req.session.data;
+  const user = getUserByID(data.users, req.query.id);
+
+  if (!isUserCoordinator(user)) return res.send(403);
+
+  let countCoordinators = 0;
+  data.users.forEach((user) => {
+    if (user.status !== "deactivated" && isUserCoordinator(user)) {
+      countCoordinators++;
+    }
+  });
+
+  if (countCoordinators === 1)
+    return redirect(req, res, "/account-creation-org-admin/cannot-deactivate");
+
+  user.status = "deactivated";
+  data.notification = {
+    show: true,
+    type: "account_deactivated",
+    email: user.emailAddress,
+  };
+
+  return redirect(req, res, `/org-admin`);
+});
 
 module.exports = router;

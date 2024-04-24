@@ -61,13 +61,13 @@
               <strong class="govuk-tag govuk-tag--grey">
                 Deactivated
               </strong>
-            {% elif user.type == "nqsw" and user.regNumber == undefined %}
+            {% elif user.type == "nqsw" and (user.regNumber == undefined or user.regNumber == "") %}
               <strong class="govuk-tag govuk-tag--orange">
                 Missing registration number
               </strong>
               <span class="govuk-!-display-block govuk-hint govuk-!-margin-bottom-0">
                 You have not provided a Social Work England registration number for this account
-              </span> 
+              </span>
             {% endif %}
 
         </th>
