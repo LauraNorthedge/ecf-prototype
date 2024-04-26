@@ -2,7 +2,7 @@
 {% from 'node_modules/dfe-frontend-alpha/packages/components/header/macro.njk' import header %}
 
 {# 2 #}
-{% extends "layouts/wrapper_govuk" %}
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
 
 {# 3 #}
 {% block header %}
@@ -74,7 +74,7 @@
 
 {% block bodyEnd %}
   <!-- GOV.UK Prototype Kit {{releaseVersion}} -->
-  {{ data | log }}
+  {# {{ data | log }} #} {# This causes an error on template pages for some reason. #}
 {% endblock %}
 
 {# 4 #}
