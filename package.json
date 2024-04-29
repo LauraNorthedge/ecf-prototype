@@ -7,9 +7,12 @@
   "dependencies": {
     "@govuk-prototype-kit/common-templates": "2.0.1",
     "@govuk-prototype-kit/step-by-step": "2.2.2",
+    "@govuk-prototype-kit/task-list": "2.0.0",
     "dfe-frontend-alpha": "^1.0.1",
-    "govuk-frontend": "5.1.0",
-    "govuk-prototype-kit": "13.16.0"
+    "govuk-frontend": "5.3.1",
+    "govuk-prototype-kit": "13.16.2",
+    "hmrc-frontend": "6.17.0",
+    "jquery": "3.7.1"
   },
   "engines": {
     "node": ">=18.18.0 <19.0.0"
