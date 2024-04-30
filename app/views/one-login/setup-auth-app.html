@@ -1,0 +1,91 @@
+{% extends "layouts/main_govuk.html" %} {% block pageTitle %} GOV.UK page template -
+{{ serviceName }} - GOV.UK Prototype Kit {% endblock %} {% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <form method="post" action="./created">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">Set up an authenticator app</h1>
+          </legend>
+
+          <p>
+            1. Open your authenticator app on your smartphone, tablet or
+            computer.
+          </p>
+
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                I don't have an authenticator app
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              <p>
+                You can download an authenticator app for your smartphone or
+                tablet from your app store.
+              </p>
+
+              <p>
+                If you don't have a smartphone or tablet, search online for an
+                authenticator app for your computer.
+              </p>
+
+              <p>You can use any authenticator app.</p>
+            </div>
+          </details>
+
+          <p>
+            2. Use your authenticator app to scan the QR code or type the secret
+            key into your authenticator app. Some authenticator apps call the
+            secret key a 'code.
+          </p>
+
+          <img src="/public/images/mock-QR.png" alt="Mock QR code" />
+
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                I cannot scan the QR code
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              <p>3. The authenticator app will show a security code.</p>
+
+              <p>
+                If you don't have a smartphone or tablet, search online for an
+                authenticator app for your computer.
+              </p>
+
+              <p>4. Enter the security code.</p>
+            </div>
+          </details>
+
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="telephone-number">
+              Security code
+            </label>
+            <p>This is the 6-digit number shown in your authenticator app</p>
+            <input
+              class="govuk-input govuk-input--width-20"
+              id="telephone-number"
+              name="telephoneNumber"
+              type="tel"
+              autocomplete="tel"
+            />
+          </div>
+
+          {% from "govuk/components/button/macro.njk" import govukButton %} {{
+          govukButton({ text: "Continue" }) }}
+
+          <p class="govuk-body">
+            <a href="#" class="govuk-link">Get a code another way</a>.
+          </p>
+        </fieldset>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layouts/main.html" %} {% block pageTitle %} Question page template -
+{{ serviceName }} - GOV.UK Prototype Kit {% endblock %} {% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="/unlink-user?id={{user.id}}" method="post">
+      <h1 class="govuk-heading-l">Are you sure you want to unlink?</h1>
+
+      <p>Click Confirm to unlink this user from your organisation.</p>
+      <p>A confirmation email will be sent to {{user.emailAddress}}.</p>
+      <p>You can link them again from the Manage Accounts page</p>
+      <div class="govuk-form-group">
+        {% from "govuk/components/button/macro.njk" import govukButton %}
+
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Continue" }) }}
+
+          <a class="govuk-link" href="./update-user?id={{user.id}}">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+  {% endblock %}
+</div>
