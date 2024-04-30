@@ -1,0 +1,26 @@
+{% extends "layouts/main.html" %}
+{% block pageTitle %}
+  Question page template - {{ serviceName }} - GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        Are you sure you want to link?
+      </h1>
+      <form class="form" action="/link-user?id={{user.id}}" method="post">
+        <p>
+        Click Confirm to link this user to your organisation.</p>
+        <p>A confirmation email will be sent to {{user.emailAddress}}.</p>
+        <p>You can unlink them again from the Manage Accounts page</p>
+        {{ govukButton({
+          text: "Cancel"
+        }) }}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

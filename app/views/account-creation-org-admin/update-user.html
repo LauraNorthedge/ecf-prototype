@@ -29,7 +29,7 @@
     <h1 class="govuk-heading-l">
       <span class="govuk-table__caption--l">Change details</span>
     </h1>
-    
+
     <dl class="govuk-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -53,14 +53,14 @@
           <p>
             {% if user.type == "nqsw" %}
               {% if user.regNumber %}
-              SWE registration number  {{user.regNumber}} 
+              SWE registration number  {{user.regNumber}}
               {% else %}
               <strong class="govuk-tag govuk-tag--orange">
                 Missing registration number
               </strong>
               <span class="govuk-!-display-block govuk-hint govuk-!-margin-bottom-0">
                 You have not provided a Social Work England registration number for this account
-              </span> 
+              </span>
 
               {% endif %}
             {% endif %}
@@ -91,26 +91,6 @@
       {% endif %}
     </p>
 
-    
-<! --
-    <p class="govuk-body">
-      {% if user.type == "nqsw" and user.status == "not_linked" %}
-      <a class="govuk-link govuk-link--no-visited-state" href="account-creation-org-admin/link-user?id={{user.id}}">Link {{ user.firstName }} {{ user.lastName }} to this organisation</a>
-      {% elif user.type == "nqsw" %}
-      <a class="govuk-link govuk-link--no-visited-state" href="account-creation-org-admin/unlink-user?id={{user.id}}" aria-describedby="unlink-hint">Unlink {{ user.firstName }} {{ user.lastName }} from this organisation</a>
-      <span id="unlinke-hint" class="govuk-hint govuk-!-display-block">
-        This account will no longer be linked to this organisation. This will not delete the account or any learner records. Coordinators from other organisations will be able to link this account to their own ECF service.
-      </span>
-      {% else %}
-        {% if user.status == "deactivated" %}
-          <a class="govuk-link govuk-link--no-visited-state" href="activate-account?id={{user.id}}">Activate account</a>
-        {% else %}
-          <a class="govuk-link govuk-link--no-visited-state" href="deactivate-account?id={{user.id}}">Deactivate account</a>
-          <p>This account will no longer have access to the ECF digital service. The account will not be permanently deleted.</p>
-          {% endif %}
-      {% endif %}
-    </p>
-    -->
   </div>
 </div>
 
