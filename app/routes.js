@@ -115,6 +115,10 @@ router.get("/account-creation-org-admin/add-user", function (req, res) {
   return res.render("/account-creation-org-admin/add-user", { user });
 });
 
+router.post("/account-creation-org-admin/add-user", function (req, res) {
+  return redirect(req, res, "/account-creation-org-admin/check-user-details");
+});
+
 function updateUser(req, res) {
   const data = req.session.data;
   const user = getUserByID(data.users, data.id);
@@ -136,28 +140,31 @@ function updateUser(req, res) {
   );
 }
 
-router.post("/account-creation-org-admin/add-user", function (req, res) {
-  const data = req.session.data;
-  // Add or update user details
-  if (data.id) return updateUser(req, res);
+router.post(
+  "/account-creation-org-admin/confirm-user-details",
+  function (req, res) {
+    const data = req.session.data;
+    // Add or update user details
+    if (data.id) return updateUser(req, res);
 
-  data.users.push({
-    emailAddress: data.emailAddress,
-    firstName: data.firstName,
-    id: data.users.length,
-    lastName: data.lastName,
-    type: data.usertype,
-    regNumber: data.regNumber,
-  });
+    data.users.push({
+      emailAddress: data.emailAddress,
+      firstName: data.firstName,
+      id: data.users.length,
+      lastName: data.lastName,
+      type: data.usertype,
+      regNumber: data.regNumber,
+    });
 
-  data.notification = {
-    show: true,
-    type: "account_added",
-    email: data.emailAddress,
-  };
+    data.notification = {
+      show: true,
+      type: "account_added",
+      email: data.emailAddress,
+    };
 
-  return redirect(req, res, "/org-admin");
-});
+    return redirect(req, res, "/org-admin");
+  }
+);
 
 // --- Update user ---
 
