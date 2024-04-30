@@ -147,6 +147,7 @@ router.post("/account-creation-org-admin/add-user", function (req, res) {
     id: data.users.length,
     lastName: data.lastName,
     type: data.usertype,
+    regNumber: data.regNumber,
   });
 
   data.notification = {
