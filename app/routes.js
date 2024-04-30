@@ -40,8 +40,14 @@ function redirect(req, res, url) {
 
 // --- One login ---
 
-router.post("/one-login", function (req, res) {
-  return res.redirect("/welcome");
+router.post("/one-login/security-codes", function (req, res) {
+  const authMethod = req.session.data["authMethod"];
+
+  if (authMethod === "textMessage") {
+    return res.redirect("/one-login/enter-mobile-no");
+  }
+
+  return res.redirect("/one-login/setup-auth-app");
 });
 
 // --- Org admin ---

@@ -1,57 +1,44 @@
-{% extends "layouts/main.html" %}
-
-{% block pageTitle %}
-  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
-{% endblock %}
-
-{% block content %}
+{% extends "layouts/main.html" %} {% block pageTitle %} GOV.UK page template –
+{{ serviceName }} – GOV.UK Prototype Kit {% endblock %} {% block content %}
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds-from-desktop">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <form method="post">
+      {% from "govuk/components/radios/macro.njk" import govukRadios %} {{
+      govukRadios({ name: "authMethod", fieldset: { legend: { text: "Choose how
+      to get security codes", isPageHeading: true, classes:
+      "govuk-fieldset__legend--l" } }, hint: { text: "To finish creating your
+      GOV.UK One Login, choose a way to prove it’s you when you sign in." },
+      items: [ { value: "textMessage", text: "Text message" }, { value:
+      "authApp", text: "Authenticator app for smartphone, tablet or computer" }
+      ] }) }}
 
-<div class="govuk-form-group">
-  <fieldset class="govuk-fieldset">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <h1 class="govuk-fieldset__heading">
-        Choose how to get security codes
-      </h1>
-    </legend>
-    <p>To finish creating your GOV.UK One Login, choose a way to prove it’s you when you sign in.</p>
-    <div class="govuk-radios" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
-        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-          Text message
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
-        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-         Authenticator app for smartphone, tablet or computer
-        </label>
-      </div>
-    </div>
-  </fieldset>
+      <details class="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What is an authenticator app?
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>
+            An authenticator app creates a security code that helps confirm it’s
+            you when you sign in.
+          </p>
+
+          <p>
+            You can use an authenticator app on your smartphone, tablet or
+            desktop computer. Download an authenticator app for your smartphone
+            or tablet from your app store or search online for an authenticator
+            app for your computer.
+          </p>
+        </div>
+      </details>
+
+      <button type="submit" class="govuk-button" data-module="govuk-button">
+        Continue
+      </button>
+
+      {% endblock %}
+    </form>
+  </div>
 </div>
-
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      What is an authenticator app?
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-<p>An authenticator app creates a security code that helps confirm it’s you when you sign in.</p>
-
-<p>You can use an authenticator app on your smartphone, tablet or desktop computer. Download an authenticator app for your smartphone or tablet from your app store or search online for an authenticator app for your computer.</p>  
-
-</div>
-</details>
-
-<button type="submit" class="govuk-button" data-module="govuk-button">
-  Continue
-</button>
-</div>
-</div>
-
-{% endblock %}
