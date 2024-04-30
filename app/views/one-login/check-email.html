@@ -1,0 +1,44 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<h1 class="govuk-heading-l">Check your email</h1>
+
+<div class="govuk-inset-text">
+  We have sent an email to: <b>email@address.com</b>
+</div>
+
+<p class="govuk-body">
+<p>The email contains a 6 digit security code.</p>
+
+<p>Your email might take a few minutes to arrive. If you do not get an email, check your spam folder.</p>
+
+<p>The code will expire after one hour.</p>
+</p>
+
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="security-code">
+    Enter the 6 digit security code
+  </label>
+  <input class="govuk-input govuk-input--width-4 govuk-input--extra-letter-spacing" id="security-code" name="securityCode" type="text" autocomplete="one-time-code" inputmode="numeric">
+</div>
+<button type="submit" class="govuk-button" data-module="govuk-button">
+  Continue
+</button>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Problems with the code?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+   We can <a href="#">send the code again</a> or you can <a href="#">use a different email address</a>.
+  </div>
+</details>
+{% endblock %}

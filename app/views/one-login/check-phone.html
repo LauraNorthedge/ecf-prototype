@@ -1,0 +1,52 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-fieldset__heading">
+        Check your phone
+      </h1>
+    </legend>
+    </div>
+
+<div class="govuk-inset-text">
+  We have sent a code to your phone number ending with [xxxx]
+</div>
+    
+<div class="govuk-form-group">
+  <label class="govuk-label" for="security-code">
+    Enter the 6 digit security code
+  </label>
+  <input class="govuk-input govuk-input--width-4 govuk-input--extra-letter-spacing" id="security-code" name="securityCode" type="text" autocomplete="one-time-code" inputmode="numeric">
+</div>
+
+<button type="submit" class="govuk-button" data-module="govuk-button">
+  Continue
+</button>
+
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Problems with the code?
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+   We can <a href="#">send the code again</a> or you can <a href="#">use a different ephone number</a>.
+   <a href="#">Get a code another way.</a> 
+  </div>
+</details>
+
+
+    </div>
+    </div>
+
+{% endblock %}
