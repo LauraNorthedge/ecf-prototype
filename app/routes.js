@@ -179,6 +179,18 @@ router.get(
 
 // --- Unlink user ---
 
+router.get(
+  "/account-creation-org-admin/unlink-are-you-sure",
+  function ({ session, query }, res) {
+    const data = session.data;
+    const user = data.users.find((user) => user.id == query.id);
+
+    return res.render("/account-creation-org-admin/unlink-are-you-sure", {
+      user,
+    });
+  }
+);
+
 router.get(/unlink-user/, function (req, res) {
   const data = req.session.data;
   const user = getUserByID(data.users, data.id);
@@ -200,7 +212,6 @@ router.get(
   function ({ session, query }, res) {
     const data = session.data;
     const user = data.users.find((user) => user.id == query.id);
-    console.log("!!!", user)
 
     return res.render("/account-creation-org-admin/link-are-you-sure", {
       user,
